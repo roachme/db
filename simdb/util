@@ -1,0 +1,34 @@
+#!/bin/bash
+clear
+
+function struct()
+{
+	mkdir src inc obj data task
+	mv *.c src
+	mv *.h inc
+
+	mv table.db data
+}
+
+function search()
+{
+	SWORD="table.db"
+	for f in $(find . -type f -name '*'); do 
+		cat $f | grep $SWORD
+		if [[ $? -eq 0 ]];then
+			echo $f
+			echo 
+		fi
+	done
+}
+
+function dilemma() {
+	for f in $(find . -name '*.c'); do
+		newfile=.$(echo $f | cut -f 2 -d ".").cpp
+		mv $f $newfile
+		echo $newfile
+
+	done
+}
+
+search
